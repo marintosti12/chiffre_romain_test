@@ -136,4 +136,19 @@ describe("Test Chiffres Romain", function () {
 
         assert.equal(chiffreRomain, "IX");
     });
+
+    it("ETANT donne le chiffre 10 QUAND on convertit le chiffre en nombre romain ALORS le nombre est X", function () {
+       
+        // Etant donne le chiffre 10
+        let chiffreArabe : number = 10;
+
+
+        // Quand on covertit le chiffre en nombre romain
+
+        let chiffreRomain : string = NombreRomain.convertirChiffreRomain(chiffreArabe);
+
+        // ALORS le nombre romain est X
+
+        assert.equal(chiffreRomain, "X");
+    });
 });
