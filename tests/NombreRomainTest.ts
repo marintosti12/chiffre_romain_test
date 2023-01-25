@@ -121,4 +121,19 @@ describe("Test Chiffres Romain", function () {
 
         assert.equal(chiffreRomain, "VIII");
     });
+
+    it("ETANT donne le chiffre 9 QUAND on convertit le chiffre en nombre romain ALORS le nombre est IX", function () {
+       
+        // Etant donne le chiffre 9
+        let chiffreArabe : number = 9;
+
+
+        // Quand on covertit le chiffre en nombre romain
+
+        let chiffreRomain : string = NombreRomain.convertirChiffreRomain(chiffreArabe);
+
+        // ALORS le nombre romain est IX
+
+        assert.equal(chiffreRomain, "IX");
+    });
 });
