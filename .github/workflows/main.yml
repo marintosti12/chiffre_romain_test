@@ -1,0 +1,71 @@
+name: Tests and Deploy
+'on':
+  push:
+    branches:
+      - dev
+
+jobs:
+  test:
+    name: 'Node.js v${{ matrix.node }}'
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node:
+          - 14
+          - 16
+    steps:
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '${{ matrix.node }}'
+      - uses: actions/checkout@v2
+        with:
+          ref: ${{ github.head_ref }}
+      - name: 'Cache node_modules'
+        uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-v${{ matrix.node }}-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-v${{ matrix.node }}-
+            
+      - name: Install Dependencies
+        run: npm install
+        
+      - name: Run All Node.js Tests
+        run: npm run test
+        env:
+         CI: true
+        
+      - name: Rejected to main
+        if: failure() 
+        uses: devops-infra/action-pull-request@v0.5.3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          source_branch: dev
+          target_branch: rejected/no_build
+          title: Automatique merge into main
+          template: .github/PULL_REQUEST_TEMPLATE.md
+          body: "**Automated pull request rejected**"
+          label: enhancement
+          draft: true
+          new_string: "** Automatic pull request rejected**"
+          get_diff: true
+          ignore_users: "dependabot"
+          allow_no_diff: true
+        
+      - name: Deploy to main
+        if: success() 
+        uses: devops-infra/action-pull-request@v0.5.3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          source_branch: dev
+          target_branch: main
+          title: Automatique merge into main
+          template: .github/PULL_REQUEST_TEMPLATE.md
+          body: "**Automated pull request**"
+          label: enhancement
+          draft: true
+          new_string: "** Automatic pull request**"
+          get_diff: true
+          ignore_users: "dependabot"
+          allow_no_diff: true
