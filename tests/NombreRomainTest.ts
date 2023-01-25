@@ -16,4 +16,19 @@ describe("Test Chiffres Romain", function () {
 
         assert.equal(chiffreRomain, "I");
     });
+
+    it("ETANT donne le chiffre 2 QUAND on convertit le chiffre en nombre romain ALORS le nombre est II", function () {
+       
+        // Etant donne le chiffre 1
+        let chiffreArabe : number = 2;
+
+
+        // Quand on covertit le chiffre en nombre romain
+
+        let chiffreRomain : string = NombreRomain.convertirChiffreRomain(chiffreArabe);
+
+        // ALORS le nombre romain est I
+
+        assert.equal(chiffreRomain, "II");
+    });
 });

@@ -2,6 +2,8 @@ export class NombreRomain
 {
     static convertirChiffreRomain(chiffreRomain: number) : string
     {
-        return 'I';
+        let result : string = "I";
+
+        return result.repeat(chiffreRomain);
     }
 }
