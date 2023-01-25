@@ -79,7 +79,7 @@ describe("Test Chiffres Romain", function () {
 
     it("ETANT donne le chiffre 6 QUAND on convertit le chiffre en nombre romain ALORS le nombre est VI", function () {
        
-        // Etant donne le chiffre 5
+        // Etant donne le chiffre 6
         let chiffreArabe : number = 6;
 
 
@@ -90,5 +90,20 @@ describe("Test Chiffres Romain", function () {
         // ALORS le nombre romain est VI
 
         assert.equal(chiffreRomain, "VI");
+    });
+
+    it("ETANT donne le chiffre 7 QUAND on convertit le chiffre en nombre romain ALORS le nombre est VII", function () {
+       
+        // Etant donne le chiffre 7
+        let chiffreArabe : number = 7;
+
+
+        // Quand on covertit le chiffre en nombre romain
+
+        let chiffreRomain : string = NombreRomain.convertirChiffreRomain(chiffreArabe);
+
+        // ALORS le nombre romain est VII
+
+        assert.equal(chiffreRomain, "VII");
     });
 });
