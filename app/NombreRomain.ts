@@ -2,8 +2,8 @@ export class NombreRomain
 {
     static convertirChiffreRomain(chiffreRomain: number) : string
     {
-        let result : string = "I";
+        let romains : string[] = ["I", 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX', 'X', 'XI', 'XII'];
 
-        return result.repeat(chiffreRomain);
+        return romains[chiffreRomain - 1];
     }
 }
