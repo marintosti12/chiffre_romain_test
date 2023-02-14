@@ -18,14 +18,12 @@ jobs:
         with:
           node-version: '${{ matrix.node }}'
       - uses: actions/checkout@v3
-        with:
-          ref: ${{ github.head_ref }}
       - name: 'Cache node_modules'
         uses: actions/cache@v2
         with:
           path: ~/.npm
           fetch-depth: 0
-          ref: 'dev'
+          ref: 'refs/heads/dev'
           key: ${{ runner.os }}-node-v${{ matrix.node }}-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-node-v${{ matrix.node }}-
@@ -49,7 +47,7 @@ jobs:
           echo "# Checkout/pull rejected/no_build"
           git pull
           git checkout dev
-          git commit --amend
+          git reset --hard HEAD~1
 
       - name: Deploy to main
         if: success() 
