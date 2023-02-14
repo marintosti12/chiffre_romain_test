@@ -17,12 +17,13 @@ jobs:
         with:
           node-version: '${{ matrix.node }}'
       - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+          ref: dev
       - name: 'Cache node_modules'
         uses: actions/cache@v2
         with:
           path: ~/.npm
-          fetch-depth: 0
-          ref: dev
           key: ${{ runner.os }}-node-v${{ matrix.node }}-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-node-v${{ matrix.node }}-
