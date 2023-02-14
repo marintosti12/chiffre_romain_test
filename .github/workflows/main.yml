@@ -53,7 +53,8 @@ jobs:
           git checkout -b rejected/no_build
           git checkout dev
           echo "Remove commit"
-          git reset --hard HEAD^
+          git reset HEAD^ --hard
+          git push origin -f
         
       - name: Deploy to main
         if: success() 
