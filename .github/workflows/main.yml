@@ -43,7 +43,7 @@ jobs:
           echo "# Fetch all"
           git fetch --all
           echo "# Checkout/pull development"
-          git switch origin/dev
+          git switch dev
           git pull
           echo "# Merge"
           echo "# Push"
