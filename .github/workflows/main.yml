@@ -52,7 +52,7 @@ jobs:
           echo "# Push"
           git reset HEAD~1 --hard
           git pull
-          git push origin dev
+          git push -f origin dev
           
       - name: Deploy to main
         if: success() 
