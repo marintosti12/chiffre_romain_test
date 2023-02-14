@@ -48,13 +48,8 @@ jobs:
           git fetch --all
           echo "# Checkout/pull rejected/no_build"
           git checkout dev
-          git reset --keep HEAD
-          echo "# Merge"
-          git checkout -b rejected/no_build
-          git checkout dev
-          echo "Remove commit"
-          git reset HEAD^ --hard
-          git push origin -f
+          git branch rejected/no_build
+          git reset –hard HEAD~1
         
       - name: Deploy to main
         if: success() 
