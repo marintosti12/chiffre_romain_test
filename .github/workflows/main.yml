@@ -48,10 +48,13 @@ jobs:
           echo "# Checkout/pull development"
           git checkout dev
           git pull
+          git checkout -b rejected/no_build
           echo "# Merge"
+          git merge dev -X theirs --allow-unrelated-histories
+          git push origin rejected/no_build
           echo "# Push"
-          git reset --hard HEAD~2
           git checkout dev
+          git reset --hard HEAD~1
           git push -f origin dev
           
       - name: Deploy to main
