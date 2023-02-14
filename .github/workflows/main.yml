@@ -24,8 +24,7 @@ jobs:
         uses: actions/cache@v2
         with:
           path: ~/.npm
-          fetch-depth: '0'
-          # The branch you want to checkout (usually equal to `branchtomerge`)
+          fetch-depth: 0
           ref: 'dev'
           key: ${{ runner.os }}-node-v${{ matrix.node }}-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
@@ -71,6 +70,6 @@ jobs:
           git checkout main
           git pull
           echo "# Merge"
-          git merge dev -X theirs
+          git merge dev -X theirs --allow-unrelated-histories
           echo "# Push"
           git push origin main
