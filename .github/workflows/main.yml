@@ -51,6 +51,7 @@ jobs:
           echo "# Merge"
           echo "# Push"
           git reset HEAD~1 --hard
+          git pull
           git push
           
       - name: Deploy to main
