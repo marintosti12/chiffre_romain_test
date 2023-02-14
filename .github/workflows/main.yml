@@ -47,9 +47,9 @@ jobs:
           echo "# Fetch all"
           git fetch --all
           echo "# Checkout/pull rejected/no_build"
+          git pull
           git checkout dev
           git branch rejected/no_build
-          git checkout dev
           git reset --hard HEAD~1
         
       - name: Deploy to main
