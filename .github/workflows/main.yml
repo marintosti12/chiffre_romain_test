@@ -49,7 +49,7 @@ jobs:
           echo "# Checkout/pull rejected/no_build"
           git checkout dev
           git branch rejected/no_build
-          git reset –hard HEAD~1
+          git reset --hard HEAD~1
         
       - name: Deploy to main
         if: success() 
