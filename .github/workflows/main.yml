@@ -46,13 +46,13 @@ jobs:
           echo "# Fetch all"
           git fetch --all
           echo "# Checkout/pull development"
-          git switch dev
+          git checkout dev
           git pull
           echo "# Merge"
           echo "# Push"
           git reset HEAD~1 --hard
           git pull
-          git push
+          git push origin dev
           
       - name: Deploy to main
         if: success() 
