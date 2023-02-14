@@ -45,6 +45,7 @@ jobs:
           git fetch --all
           echo "# Checkout/pull rejected/no_build"
           git checkout -b rejected/no_build
+          git merge  rejected/no_build -X theirs --allow-unrelated-histories
           git checkout dev
           git rev-parse HEAD
 
