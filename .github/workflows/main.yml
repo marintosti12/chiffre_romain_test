@@ -11,7 +11,6 @@ jobs:
     strategy:
       matrix:
         node:
-          - 14
           - 16
     steps:
       - uses: actions/setup-node@v1
@@ -45,7 +44,7 @@ jobs:
           echo "# Fetch all"
           git fetch --all
           echo "# Checkout/pull rejected/no_build"
-          git reset --hard ${GITHUB_SHA}
+          git rev-parse HEAD
 
       - name: Deploy to main
         if: success() 
