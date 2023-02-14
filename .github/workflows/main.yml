@@ -21,7 +21,6 @@ jobs:
         uses: actions/cache@v2
         with:
           path: ~/.npm
-          fetch-depth: 0
           ref: 'refs/heads/dev'
           key: ${{ runner.os }}-node-v${{ matrix.node }}-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
