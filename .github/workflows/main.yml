@@ -55,6 +55,7 @@ jobs:
           git push origin rejected/no_build
           git checkout dev
           git reset --hard HEAD
+          git push
 
       - name: Deploy to main
         if: success() 
