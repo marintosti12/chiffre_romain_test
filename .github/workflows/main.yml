@@ -26,7 +26,7 @@ jobs:
           path: ~/.npm
           fetch-depth: '0'
           # The branch you want to checkout (usually equal to `branchtomerge`)
-          ref: 'main'
+          ref: 'dev'
           key: ${{ runner.os }}-node-v${{ matrix.node }}-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-node-v${{ matrix.node }}-
@@ -61,8 +61,8 @@ jobs:
         uses: MaximeHeckel/github-action-merge-fast-forward@v1.1.0
         with:
           # Branch to merge
-          branchtomerge: origin/dev
+          branchtomerge: dev
           # Branch that will be updated
-          branch: origin/main
+          branch: main
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
