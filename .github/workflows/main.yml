@@ -58,11 +58,19 @@ jobs:
         
       - name: Deploy to main
         if: success() 
-        uses: MaximeHeckel/github-action-merge-fast-forward@v1.1.0
-        with:
-          # Branch to merge
-          branchtomerge: dev
-          # Branch that will be updated
-          branch: main
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          echo "# Config"
+          git config --local user.email "[hidden]"
+          git config --local user.name "CI"
+          echo "# Fetch all"
+          git fetch --all
+          echo "# Checkout/pull development"
+          git checkout dev
+          git pull
+          echo "# Checkout/pull master"
+          git checkout main
+          git pull
+          echo "# Merge"
+          git merge dev -X theirs
+          echo "# Push"
+          git push origin main
