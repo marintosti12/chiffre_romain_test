@@ -58,8 +58,8 @@ jobs:
         uses: MaximeHeckel/github-action-merge-fast-forward@v1.1.0
         with:
           # Branch to merge
-          branchtomerge: dev
+          branchtomerge: origin/dev
           # Branch that will be updated
-          branch: main
+          branch: origin/main
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
