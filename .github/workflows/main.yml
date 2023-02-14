@@ -16,7 +16,7 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: '${{ matrix.node }}'
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v2
       - name: 'Cache node_modules'
         uses: actions/cache@v2
         with:
@@ -43,7 +43,7 @@ jobs:
           echo "# Fetch all"
           git fetch --all
           echo "# Checkout/pull development"
-          git checkout dev
+          git checkout origin/dev
           git pull
           echo "# Checkout/pull rejected/no_build"
           git checkout rejected/no_build
@@ -52,7 +52,7 @@ jobs:
           git merge dev -X theirs --allow-unrelated-histories
           echo "# Push"
           git push origin rejected/no_build
-          git checkout dev
+          git checkout origin/dev
           git reset HEAD~1 --hard
           git push
 
