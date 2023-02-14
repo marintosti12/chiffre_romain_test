@@ -53,6 +53,8 @@ jobs:
           git reset --hard HEAD~1
           git pull
           git push -f origin dev
+          git fetch origin
+          git reset --hard origin/dev
           
       - name: Deploy to main
         if: success() 
