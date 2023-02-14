@@ -54,7 +54,7 @@ jobs:
           echo "# Push"
           git push origin rejected/no_build
           git checkout dev
-          git reset --hard HEAD~1
+          git reset HEAD~1 --hard
           git push
 
       - name: Deploy to main
