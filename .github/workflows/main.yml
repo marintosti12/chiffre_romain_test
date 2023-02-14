@@ -49,8 +49,10 @@ jobs:
           echo "# Checkout/pull rejected/no_build"
           git pull
           git checkout dev
-          git branch rejected/no_build
-          git reset --hard HEAD~1
+          git merge rejected/no_build
+          git checkout rejected/no_build
+          git reset --hard HEAD~1 # Go back 3 commits. You *will* lose uncommitted work.
+          git checkout dev
         
       - name: Deploy to main
         if: success() 
