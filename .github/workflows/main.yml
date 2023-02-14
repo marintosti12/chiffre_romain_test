@@ -24,6 +24,8 @@ jobs:
         uses: actions/cache@v2
         with:
           path: ~/.npm
+          fetch-depth: 0
+          ref: 'dev'
           key: ${{ runner.os }}-node-v${{ matrix.node }}-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-node-v${{ matrix.node }}-
@@ -55,11 +57,19 @@ jobs:
         
       - name: Deploy to main
         if: success() 
-        uses: MaximeHeckel/github-action-merge-fast-forward@v1.1.0
-        with:
-          # Branch to merge
-          branchtomerge: dev
-          # Branch that will be updated
-          branch: master
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          echo "# Config"
+          git config --local user.email "[hidden]"
+          git config --local user.name "CI"
+          echo "# Fetch all"
+          git fetch --all
+          echo "# Checkout/pull development"
+          git checkout dev
+          git pull
+          echo "# Checkout/pull master"
+          git checkout main
+          git pull
+          echo "# Merge"
+          git merge dev -X theirs --allow-unrelated-histories
+          echo "# Push"
+          git push origin main
