@@ -1,0 +1,76 @@
+name: Tests and Deploy
+'on':
+  push:
+    branches:
+      - dev
+
+jobs:
+  test:
+    name: 'Node.js v${{ matrix.node }}'
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node:
+          - 16
+    steps:
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '${{ matrix.node }}'
+      - uses: actions/checkout@v3
+      - name: 'Cache node_modules'
+        uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          fetch-depth: 0
+          ref: 'refs/heads/dev'
+          key: ${{ runner.os }}-node-v${{ matrix.node }}-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-v${{ matrix.node }}-
+            
+      - name: Install Dependencies
+        run: npm install
+        
+      - name: Run All Node.js Tests
+        run: npm run test
+        env:
+         CI: true
+        
+      - name: Rejected to main
+        if: failure() 
+        run: |
+          echo "# Config"
+          git config --local user.email "[hidden]"
+          git config --local user.name "CI"
+          echo "# Fetch all"
+          git fetch --all
+          echo "# Checkout/pull development"
+          git checkout dev
+          git pull
+          echo "# Checkout/pull rejected/no_build"
+          git checkout rejected/no_build
+          git pull
+          echo "# Merge"
+          git merge dev -X theirs --allow-unrelated-histories
+          echo "# Push"
+          git push origin rejected/no_build
+          git checkout dev
+          git rev-parse HEAD
+
+      - name: Deploy to main
+        if: success() 
+        run: |
+          echo "# Config"
+          git config --local user.email "[hidden]"
+          git config --local user.name "CI"
+          echo "# Fetch all"
+          git fetch --all
+          echo "# Checkout/pull development"
+          git checkout dev
+          git pull
+          echo "# Checkout/pull master"
+          git checkout main
+          git pull
+          echo "# Merge"
+          git merge dev -X theirs --allow-unrelated-histories
+          echo "# Push"
+          git push origin main
