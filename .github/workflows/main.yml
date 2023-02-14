@@ -1,70 +1,17 @@
-name: Tests and Deploy
-'on':
+name: Revert Last Commit
+on:
   push:
     branches:
       - dev
-
 jobs:
-  test:
-    name: 'Node.js v${{ matrix.node }}'
+  revert-commit:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node:
-          - 16
     steps:
-      - uses: actions/setup-node@v1
-        with:
-          node-version: '${{ matrix.node }}'
-      - uses: actions/checkout@v2
-      - name: 'Cache node_modules'
-        uses: actions/cache@v2
-        with:
-          path: ~/.npm
-          ref: 'refs/heads/dev'
-          key: ${{ runner.os }}-node-v${{ matrix.node }}-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-v${{ matrix.node }}-
-            
-      - name: Install Dependencies
-        run: npm install
-        
-      - name: Run All Node.js Tests
-        run: npm run test
-        env:
-         CI: true
-        
-      - name: Rejected to main
-        if: failure() 
-        run: |
-          echo "# Config"
-          git config --local user.email "[hidden]"
-          git config --local user.name "CI"
-          echo "# Fetch all"
-          git fetch --all
-          echo "# Checkout/pull development"
-          git switch dev
-          git pull
-          echo "# Merge"
-          echo "# Push"
-          git reset HEAD~1 --hard
-          git push
-
-      - name: Deploy to main
-        if: success() 
-        run: |
-          echo "# Config"
-          git config --local user.email "[hidden]"
-          git config --local user.name "CI"
-          echo "# Fetch all"
-          git fetch --all
-          echo "# Checkout/pull development"
-          git checkout dev
-          git pull
-          echo "# Checkout/pull master"
-          git checkout main
-          git pull
-          echo "# Merge"
-          git merge dev -X theirs --allow-unrelated-histories
-          echo "# Push"
-          git push origin main
+    - name: Checkout branch
+      uses: actions/checkout@v2
+    - name: Revert Last Commit
+      run: git reset HEAD~1
+    - name: Push changes
+      uses: stefanzweifel/git-auto-commit-action@v4.7.2
+      with:
+        commit_message: Revert last commit
