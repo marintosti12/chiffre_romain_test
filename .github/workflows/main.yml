@@ -51,7 +51,7 @@ jobs:
           git pull
           echo "# Checkout/pull rejected/no_build"
           git checkout -b rejected/no_build
-          git pull origin rejected/no_build
+          git pull --ff-only
           echo "# Merge"
           git merge dev -X theirs --allow-unrelated-histories
           echo "# Push"
