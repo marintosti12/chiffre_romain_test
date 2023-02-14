@@ -44,19 +44,13 @@ jobs:
           echo "# Config"
           git config --local user.email "[hidden]"
           git config --local user.name "CI"
-          git config --global pull.rebase true
           echo "# Fetch all"
           git fetch --all
-          echo "# Checkout/pull development"
-          git checkout dev
-          git pull
           echo "# Checkout/pull rejected/no_build"
-          git checkout -b rejected/no_build
-          git pull origin rejected/no_build
+          git checkout dev
+          git reset --keep HEAD
           echo "# Merge"
-          git merge dev -X theirs --allow-unrelated-histories
-          echo "# Push"
-          git push origin rejected/no_build
+          git checkout -b rejected/no_build
         
       - name: Deploy to main
         if: success() 
