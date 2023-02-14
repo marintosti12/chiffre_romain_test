@@ -57,6 +57,7 @@ jobs:
           git push origin rejected/no_build
           echo "Remove Commit From Dev"
           git checkout dev
+          git pull
           git reset --soft HEAD~1
         
       - name: Deploy to main
