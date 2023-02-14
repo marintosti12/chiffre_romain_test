@@ -45,9 +45,9 @@ jobs:
           echo "# Fetch all"
           git fetch --all
           echo "# Checkout/pull rejected/no_build"
-          git pull
-          git checkout dev
-          git reset --hard HEAD~1
+          
+          git_hash=$(git rev-parse --short "$GITHUB_SHA")
+          echo git_hash
 
       - name: Deploy to main
         if: success() 
