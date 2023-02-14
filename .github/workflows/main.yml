@@ -51,6 +51,9 @@ jobs:
           git reset --keep HEAD
           echo "# Merge"
           git checkout -b rejected/no_build
+          git checkout dev
+          echo "Remove commit"
+          git reset --hard HEAD^
         
       - name: Deploy to main
         if: success() 
