@@ -212,4 +212,19 @@ describe("Test Chiffres Romain", function () {
 
         assert.equal(chiffreRomain, "XIII");
     });
+
+    it("ETANT donne le chiffre 13 QUAND on convertit le chiffre en nombre romain ALORS le nombre est XIII", function () {
+       
+        // Etant donne le chiffre 13
+        let chiffreArabe : number = 13;
+
+
+        // Quand on covertit le chiffre en nombre romain
+
+        let chiffreRomain : string = NombreRomain.convertirChiffreRomain(chiffreArabe);
+
+        // ALORS le nombre romain est XIII
+
+        assert.equal(chiffreRomain, "XIII");
+    });
 });
