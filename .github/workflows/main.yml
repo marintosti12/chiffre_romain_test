@@ -46,21 +46,14 @@ jobs:
           echo "# Fetch all"
           git fetch --all
           echo "# Checkout/pull development"
-          git status
           git checkout dev
-          git status
           git pull
           echo "# Merge"
           echo "# Push"
-          git status
           git reset --hard HEAD~1
-          git status
           git pull
-          git status
           git checkout dev
-          git status
           git push -f origin dev
-          git status
           
       - name: Deploy to main
         if: success() 
