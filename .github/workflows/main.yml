@@ -42,6 +42,7 @@ jobs:
           echo "# Config"
           git config --local user.email "[hidden]"
           git config --local user.name "CI"
+          git config --global pull.rebase true
           echo "# Fetch all"
           git fetch --all
           echo "# Checkout/pull development"
