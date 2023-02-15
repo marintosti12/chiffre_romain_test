@@ -255,7 +255,7 @@ describe("Test Chiffres Romain", function () {
 
         // ALORS le nombre romain est XIII
 
-        assert.equal(chiffreRomain, "XII");
+        assert.equal(chiffreRomain, "XIII");
     });
 
 });
